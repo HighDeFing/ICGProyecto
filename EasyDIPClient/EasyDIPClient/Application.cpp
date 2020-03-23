@@ -124,6 +124,7 @@ static float col4[4] = { 0.0f,0.0f,0.0f,0.0f };
 static float col3[4] = { 1.0f,1.0f,1.0f,1.0f };
 static float col5[4] = { 1.0f,1.0f,1.0f, 1.0f };
 
+static float normal_size = 0.5f;
 static float vec4fs[4] = { 0.5f, 0.5f, 0.5f, 0.5f };
 static float vec4ft[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
@@ -768,7 +769,7 @@ void Application::ImGui()
 			ImGui::Checkbox("Mallado", &model[picked]->mallado);
 			ImGui::Checkbox("Puntos", &model[picked]->points);
 			ImGui::Checkbox("Relleno", &model[picked]->relleno);
-			ImGui::Checkbox("Back Face culling", &model[picked]->back_face_culling);
+			ImGui::Checkbox("Back Face Culling", &model[picked]->back_face_culling);
 			if (ImGui::Checkbox("Ortho", &orthos))
 			{
 				NCP = 0.0f;
@@ -788,7 +789,11 @@ void Application::ImGui()
 				{
 				glDisable(GL_DEPTH_TEST);
 				}
-
+			ImGui::Separator();
+			ImGui::Checkbox("Normales por vertice", &model[picked]->Bnormals);
+			normal_size = model[picked]->disN;
+			ImGui::SliderFloat("Tamano normales", &normal_size, 0.0f, 1.0f, "ratio = %.05f");
+			model[picked]->disN = normal_size;
 		}
 	}
 

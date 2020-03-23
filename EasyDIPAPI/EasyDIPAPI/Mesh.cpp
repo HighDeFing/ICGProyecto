@@ -200,6 +200,10 @@ void Mesh::Draw()
 	{
 		create_BoundingBox();
 	}
+	if(Bnormals)
+	{
+		draw_vertex_normals();
+	}
 	//glBindVertexArray(VAO);
 	//glBindVertexArray(0);
 }
@@ -305,6 +309,22 @@ void Mesh::setmodelMatrix()
 	glm::mat4 T = glm::translate(vec4ftraslate);
 	modelMatrix = T * S * R;
 
+}
+
+void Mesh::draw_vertex_normals()
+{
+	glPointSize(1.0);
+	glColor3f(normal_Color[0], normal_Color[1], normal_Color[2]);
+	bwShader->setVec3("objectColor", glm::vec3(normal_Color[0], normal_Color[1], normal_Color[2]));
+	for (int i = 0; i < vertices.size(); i++)
+	{
+		glBegin(GL_LINES);
+		glVertex3f(vertices[i].Position.x, vertices[i].Position.y, vertices[i].Position.z);
+		glVertex3f(((vertices[i].Normal.x * disN) + vertices[i].Position.x) , ((vertices[i].Normal.y * disN) + vertices[i].Position.y), ((vertices[i].Normal.z * disN) + vertices[i].Position.z));
+		glEnd();
+
+	}
+	glPointSize(1.0);
 }
 
 void Mesh::setproj(glm::mat4 input)

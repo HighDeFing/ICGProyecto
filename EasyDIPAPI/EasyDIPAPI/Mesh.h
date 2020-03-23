@@ -43,9 +43,15 @@ public:
 	bool only_color = true;
 	bool only_texture;
 	bool Boundingbox = true;
+
+	bool Bnormals = false;
 	int texture_mode = 0; 
 
+	
 	float mBColor[3];
+
+	float disN = 0.5f;
+	float normal_Color[3] = { 0.0f,1.0f,1.0f };
 
 	float xMin, xMax, yMin, yMax, zMin, zMax;
 
@@ -72,6 +78,7 @@ public:
 	void loadCreateTexture(const char*);
 	void BindTexture();
 	void setBoundingBox(glm::vec3 Min, glm::vec3 Max);
+	void draw_vertex_normals();
 	//static Mesh* Instance();
 };
 #endif // !__ED_MESH__
