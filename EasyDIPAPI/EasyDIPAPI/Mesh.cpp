@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include <iostream>
 #include <filesystem>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "stb_image.h"
 namespace fs = std::filesystem;
@@ -60,6 +61,7 @@ void Mesh::setupMesh()
 	//{
 	//	std::cout<<indices[i];
 	//}
+	mBColor[0] = mBColor[1] = mBColor[2] = 1.0f;
 	vec4ftraslate[0] = vec4ftraslate[1] = vec4ftraslate[2] = 0.0f;
 	vec4fscale[0] = vec4fscale[1] = vec4fscale[2] = vec4fscale[3] = 1.0f;
 	Qrotacion = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
@@ -79,7 +81,7 @@ void Mesh::setupMesh()
 	// position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 	glEnableVertexAttribArray(0);
-	// color attribute
+	// normal attribute
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 	glEnableVertexAttribArray(1);
 	// texture coord attribute
@@ -194,6 +196,10 @@ void Mesh::Draw()
 		bwShader->setVec3("objectColor", glm::vec3(colorpoints[0], colorpoints[1], colorpoints[2]));
 		glDrawElements(GL_POINTS, indices.size(), GL_UNSIGNED_INT, 0);
 	}
+	if(Boundingbox)
+	{
+		create_BoundingBox();
+	}
 	//glBindVertexArray(VAO);
 	//glBindVertexArray(0);
 }
@@ -203,19 +209,80 @@ void Mesh::DrawNormals()
 	glDrawElements(GL_LINE_STRIP, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
-void Mesh::create_BoundingBox(glm::vec3 min, glm::vec3 max)
+void Mesh::setBoundingBox(glm::vec3 Min, glm::vec3 Max)
 {
-	float quadVertices[] = {
-		// positions        	// texture Coords
-		 min[0],  min[1],  min[2],
-		 min[0],  min[1],  min[2],
-		 min[0],  max[1],  min[2],
-		 min[0],  max[1],  max[2],
-		 max[0],  min[1],  min[2],
-		 max[0],  min[1],  max[2],
-		 max[0],  max[2],  min[2],
-		 max[0],  max[2],  max[2]
-	};
+	xMin = Min.x; xMax = Max.x;
+	yMin = Min.y; yMax = Max.y;
+	zMin = Min.z; zMax = Max.z;
+}
+
+void Mesh::create_BoundingBox()
+{
+	glColor3f(mBColor[0], mBColor[1], mBColor[2]);
+	bwShader->setVec3("objectColor", glm::vec3(mBColor[0], mBColor[1], mBColor[2]));
+		glLineWidth(2);
+		glBegin(GL_LINES);
+		glVertex3f(xMin, yMin, zMax);
+		glVertex3f(xMax, yMin, zMax);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMax, yMin, zMax);
+		glVertex3f(xMax, yMax, zMax);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMax, yMax, zMax);
+		glVertex3f(xMin, yMax, zMax);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMin, yMax, zMax);
+		glVertex3f(xMin, yMin, zMax);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMin, yMax, zMax);
+		glVertex3f(xMin, yMax, zMin);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMin, yMax, zMin);
+		glVertex3f(xMax, yMax, zMin);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMax, yMax, zMin);
+		glVertex3f(xMax, yMax, zMax);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMax, yMax, zMin);
+		glVertex3f(xMax, yMin, zMin);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMax, yMin, zMin);
+		glVertex3f(xMax, yMin, zMax);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMax, yMin, zMin);
+		glVertex3f(xMin, yMin, zMin);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMin, yMin, zMin);
+		glVertex3f(xMin, yMax, zMin);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex3f(xMin, yMin, zMin);
+		glVertex3f(xMin, yMin, zMax);
+		glEnd();
+		
+		glLineWidth(1);
+
 }
 
 void Mesh::setView(glm::mat4 input)

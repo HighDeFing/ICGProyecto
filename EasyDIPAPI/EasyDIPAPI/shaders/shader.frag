@@ -33,8 +33,8 @@ void main()
 {
 	
     //FragColor = my_color;
-			// ambient
 			vec4 Light_Textura;
+			// ambient
 			float ambientStrength = intensity_ambiental;
 			vec3 ambient = ambientStrength * lightColor;
   	

@@ -122,6 +122,7 @@ static float col2[4] = { 0.4f,0.7f,0.0f,0.5f };
 static float col1[4] = { 0.2f,0.3f,0.3f,1.0f};
 static float col4[4] = { 0.0f,0.0f,0.0f,0.0f };
 static float col3[4] = { 1.0f,1.0f,1.0f,1.0f };
+static float col5[4] = { 1.0f,1.0f,1.0f, 1.0f };
 
 static float vec4fs[4] = { 0.5f, 0.5f, 0.5f, 0.5f };
 static float vec4ft[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
@@ -699,9 +700,18 @@ void Application::ImGui()
 			ImGui::SameLine(); HelpMarker("Click on the colored square to open a color picker.\nClick and hold to use drag and drop.\nRight-click on the colored square to show options.\nCTRL+click on individual component to input value.\n");
 			ImGui::ColorEdit4("color 3", col3);
 
+			col5[0] = model[picked]->mBColor[0];
+			col5[1] = model[picked]->mBColor[1];
+			col5[2] = model[picked]->mBColor[2];
+			ImGui::Text("Color bouding-box with Picker:");
+			ImGui::SameLine(); HelpMarker("Click on the colored square to open a color picker.\nClick and hold to use drag and drop.\nRight-click on the colored square to show options.\nCTRL+click on individual component to input value.\n");
+			ImGui::ColorEdit4("color 5", col5);
+
 			model[picked]->colormesh = glm::vec4(col3[0], col3[1], col3[2], col3[3]);
 			model[picked]->colorpoints = glm::vec4(col4[0], col4[1], col4[2], col4[3]);
 			model[picked]->colorrelleno = glm::vec4(col2[0], col2[1], col2[2], col2[3]);
+			model[picked]->mBColor[0] = col5[0]; model[picked]->mBColor[1] = col5[1]; model[picked]->mBColor[2] = col5[2];
+			
 
 			ImGui::Separator();
 			//rotate
@@ -767,6 +777,7 @@ void Application::ImGui()
 			{
 				NCP = 0.01f;
 			}
+			ImGui::Checkbox("Bounding Box", &model[picked]->Boundingbox);
 			ImGui::Checkbox("Z-buffer", &zbuffer);
 			if (zbuffer) 
 			{

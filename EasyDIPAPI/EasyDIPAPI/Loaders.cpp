@@ -107,13 +107,15 @@ namespace CG
 			//std::cout << "Position:" << glm::to_string(vertices[i].Position) << '\n';
 		}
 		//std::cout << glm::to_string(vertices_model[indices_model[0].vertexIndex]) << '\n';
+
 		maxVertex = glm::vec3(vertices[0].Position.x, vertices[0].Position.y, vertices[0].Position.z);
 		minVertex = glm::vec3(vertices[0].Position.x, vertices[0].Position.y, vertices[0].Position.z);
 		for (int i = 0; i < vertices.size();i++)
 		{
+
 			maxVertex = glm::vec3(MAX(maxVertex.x, vertices[i].Position.x), MAX(maxVertex.y, vertices[i].Position.y), MAX(maxVertex.z, vertices[i].Position.z));
 			minVertex = glm::vec3(MIN(minVertex.x, vertices[i].Position.x), MIN(minVertex.y, vertices[i].Position.y), MIN(minVertex.z, vertices[i].Position.z));
-
+			
 		}
 		Centro = (maxVertex + minVertex) / glm::vec3(2);
 		float median_pointMAX_MAX = MAX(maxVertex.z, MAX(maxVertex.x, maxVertex.y));
@@ -173,9 +175,22 @@ namespace CG
 			std::cout << "Normals:" << glm::to_string(vertices[i].Normal) << '\n';
 			std::cout << "Textures:" << glm::to_string(vertices[i].TexCoords) << '\n';
 		}*/
+		float xMin, xMax, yMin, yMax, zMin, zMax;
+		xMin = vertices[0].Position.x; xMax = vertices[0].Position.x;
+		yMin = vertices[0].Position.y; yMax = vertices[0].Position.y;
+		zMin = vertices[0].Position.z; zMax = vertices[0].Position.z;
+
+		for (int i = 0; i < vertices.size();i++)
+		{
+			xMin = MIN(xMin, vertices[i].Position.x); yMin = MIN(yMin, vertices[i].Position.y); zMin = MIN(zMin, vertices[i].Position.z);
+			xMax = MAX(xMax, vertices[i].Position.x); yMax = MAX(yMax, vertices[i].Position.y); zMax = MAX(zMax, vertices[i].Position.z);
+		}
+		minVertex = glm::vec3(xMin, yMin, zMin);
+		maxVertex = glm::vec3(xMax, yMax, zMax);
 
 		Mesh *mesh = new Mesh();
 		mesh->MeshCreate(vertices, indices);
+		mesh->setBoundingBox(minVertex, maxVertex);
 		return mesh;
 
 	}

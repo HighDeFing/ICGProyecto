@@ -42,7 +42,12 @@ public:
 	bool texture_with_color;
 	bool only_color = true;
 	bool only_texture;
+	bool Boundingbox = true;
 	int texture_mode = 0; 
+
+	float mBColor[3];
+
+	float xMin, xMax, yMin, yMax, zMin, zMax;
 
 	glm::vec4 colorrelleno = { 0.4f,0.7f,0.0f,0.5f };
 	glm::vec4 colormesh = { 1.0f,1.0f,1.0f,1.0f };
@@ -60,12 +65,13 @@ public:
 	void Bind();
 	void setupMesh();
 	void DrawNormals();
-	void create_BoundingBox(glm::vec3 min, glm::vec3 max);
+	void create_BoundingBox();
 	void setmodelMatrix();
 	void setproj(glm::mat4);
 	void setView(glm::mat4);
 	void loadCreateTexture(const char*);
 	void BindTexture();
+	void setBoundingBox(glm::vec3 Min, glm::vec3 Max);
 	//static Mesh* Instance();
 };
 #endif // !__ED_MESH__
