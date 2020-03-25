@@ -31,18 +31,19 @@ class Mesh {
 	vector<unsigned int> indices;
 	unsigned int texture;
 
-	~Mesh();
+	
 public:
+	~Mesh();
 	bool mallado = true;
 	bool points;
 	bool back_face_culling;
-	bool zbuffer;
+	bool zbuffer = true;
 	bool relleno;
 	bool texture_drawing = false;
 	bool texture_with_color;
 	bool only_color = true;
 	bool only_texture;
-	bool Boundingbox = true;
+	bool Boundingbox = false;
 
 	bool Bnormals = false;
 	int texture_mode = 0; 

@@ -10,6 +10,7 @@ namespace CG
 		glm::vec3 v2;
 		glm::vec3 normal;
 	};
+
 	Mesh* Load(const std::string path);
 	static Mesh* LoadObj(const std::string path);
 	static Mesh* LoadOff(const std::string path);

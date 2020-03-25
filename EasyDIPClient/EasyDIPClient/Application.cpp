@@ -143,7 +143,6 @@ Light *lights;
 
 //CAMARA
 glm::mat4 view;
-
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -159,7 +158,7 @@ float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
 float fov = 45.0f;
 
-bool zbuffer = false;
+bool zbuffer = true;
 bool move;
 
 //INTENSIDAD DE LUZ
@@ -168,6 +167,10 @@ static float intensity_specular = 0.8f;
 
 //TEXTURE MODE
 int texture_mode = 0;
+
+//GAME
+Mesh *Map;
+Mesh *Character;
 
 Application::Application() {
 
@@ -262,6 +265,7 @@ Application::Application() {
 	// (optional) set browser properties
 	//fileDialog.SetTitle("title");
 	//fileDialog.SetTypeFilters({ ".jpg", ".png", ".jpeg" });
+
 	Init();
 }
 
@@ -401,6 +405,51 @@ void Application::processInput()
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		move = false;
 
+	//Character move
+	float move_pase = 0.008f;
+	if (Character) {
+		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		{
+			if(Character->vec4ftraslate.x + move_pase <= 0.437)
+			Character->vec4ftraslate.x += move_pase;
+			else
+			{
+				Character->vec4ftraslate.x = 0.437;
+			}
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			if (Character->vec4ftraslate.x - move_pase >= -0.436)
+				Character->vec4ftraslate.x -= move_pase;
+			else
+			{
+				Character->vec4ftraslate.x = -0.436;
+			}
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		{
+			if(Character->vec4ftraslate.z + move_pase <= 0.434)
+			Character->vec4ftraslate.z += move_pase;
+			else 
+			{
+				Character->vec4ftraslate.z = 0.434;
+			}
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		{
+			if (Character->vec4ftraslate.z - move_pase >= -0.435)
+			Character->vec4ftraslate.z -= move_pase;
+			else
+			{
+				Character->vec4ftraslate.z = -0.435;
+			}
+		}
+
+	}
+
 
 }
 
@@ -419,6 +468,38 @@ void Application::Render()
 		proj = glm::perspective(glm::radians(fov), (float)windowWidth / (float)windowHeight, NCP, 1000.0f);
 	}
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+
+	if (Map) 
+	{
+		if (bwShader)
+		{
+			bwShader->use();
+			bwShader->setVec3("cameraPos", cameraPos);
+			Map->setmodelMatrix();
+			Map->BindTexture();
+			Map->Bind();
+			Map->setView(view);
+			Map->setproj(proj);
+			Map->Draw();
+		}
+	}
+
+	if (Character)
+	{
+		if (bwShader)
+		{
+			//std::cout << "X:" << Character->vec4ftraslate.x << '\n';
+			//std::cout << "Z:" << Character->vec4ftraslate.z << '\n';
+			bwShader->use();
+			bwShader->setVec3("cameraPos", cameraPos);
+			Character->setmodelMatrix();
+			Character->BindTexture();
+			Character->Bind();
+			Character->setView(view);
+			Character->setproj(proj);
+			Character->Draw();
+		}
+	}
 
 	if (model.size() > 0) {
 		for (int i = 0; i < model.size(); i++)
@@ -756,6 +837,8 @@ void Application::ImGui()
 			model[picked]->vec4ftraslate.x = vec4ft[0];
 			model[picked]->vec4ftraslate.y = vec4ft[1];
 			model[picked]->vec4ftraslate.z = vec4ft[2];
+			//std::cout << "X" << vec4ft[0] << " "; std::cout << "Y" << vec4ft[1] <<" "; std::cout << "Z" << vec4ft[2] << " ";
+
 			//ImGui::SliderFloat3("TRASLATE", vec4ft, -2.0f, 2.0f, "ratio = %.01f");
 			/*glm::vec3 auxs(vec4fs[0], vec4fs[1], vec4fs[2]);
 			glm::vec3 auxt(vec4ft[0], vec4ft[1], vec4ft[2]);
@@ -844,6 +927,50 @@ void Application::Init() {
 	bwShader = new Shader(vertexPath, fragmentPath, NULL);
 	lampShader = new Shader(vertex_LightPath, fragment_LightPath, NULL);
 	//*bwShader = mainShader;
+	SetMap();
+	SetCharacter();
+	Enable_Zbuffer();
+	
+}
+
+void Application::SetMap()
+{
+	Map = new Mesh();
+	Map = CG::Load("./../Map/Map.obj");
+	Map->mallado = true;
+	Map->relleno = true;
+	Map->back_face_culling = true;
+	Map->zbuffer = true;
+	Map->vec4fscale.x = 0.5f;
+	Map->vec4fscale.y = 0.5f;
+	Map->vec4fscale.z = 0.5f;
+}
+
+void Application::Enable_Zbuffer()
+{
+	glEnable(GL_DEPTH_TEST);
+	//glDepthMask(GL_FALSE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Application::SetCharacter()
+{
+	Character = new Mesh();
+	Character = CG::Load("./../Character/character.obj");
+	Character->loadCreateTexture("./../texture/container.jpg");
+	Character->only_color = false;
+	Character->only_texture = true;
+	Character->texture_drawing = true;
+	Character->zbuffer = true;
+	Character->mallado = true;
+	Character->relleno = true;
+	Character->back_face_culling = true;
+	Character->vec4fscale.x = 0.04f;
+	Character->vec4fscale.y = 0.04f;
+	Character->vec4fscale.z = 0.04f;
+	Character->vec4ftraslate.x = -0.4f;
+	Character->vec4ftraslate.y = 0.035f;
+	Character->vec4ftraslate.z = 0.42f;
 }
 
 void Application::HelpMarker(const char* desc)

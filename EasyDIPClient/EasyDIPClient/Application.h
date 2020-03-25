@@ -35,7 +35,12 @@ public:
 	void Render();
 	void ImGui();
 	void Init();
+
 	float NCP = 0.03f;
+
+	void SetCharacter();
+	void SetMap();
+	void Enable_Zbuffer();
 	
 	static void HelpMarker(const char* desc);
 
