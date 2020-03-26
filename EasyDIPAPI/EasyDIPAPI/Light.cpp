@@ -108,6 +108,7 @@ void Light::Connect_shader()
 
 void Light::Draw()
 {
+	glDisable(GL_CULL_FACE);
 	lampShader->setMat4("mModel", modelMatrix);
 	lampShader->setMat4("mView", view);
 	lampShader->setMat4("mProj", proj);

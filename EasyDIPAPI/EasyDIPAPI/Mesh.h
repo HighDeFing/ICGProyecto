@@ -5,7 +5,6 @@
 
 #include <glad/glad.h>
 #include "glm/gtx/string_cast.hpp"
-#include "EDpch.h"
 #include <glm/vec3.hpp>
 #include "glm/gtc/quaternion.hpp"
 #include "glm/gtx/transform.hpp"
@@ -48,6 +47,8 @@ public:
 	bool Bnormals = false;
 	int texture_mode = 0; 
 
+	glm::vec3 Centro;
+	glm::vec3 size;
 	
 	float mBColor[3];
 

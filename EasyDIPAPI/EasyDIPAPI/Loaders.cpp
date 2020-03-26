@@ -87,6 +87,7 @@ namespace CG
 		glm::vec3 maxVertex;
 		float median_point;
 
+
 		// sizes
 		float indices_size = indices_model.size();
 		float vertices_size = vertices_model.size();
@@ -188,9 +189,13 @@ namespace CG
 		minVertex = glm::vec3(xMin, yMin, zMin);
 		maxVertex = glm::vec3(xMax, yMax, zMax);
 
+
+
 		Mesh *mesh = new Mesh();
 		mesh->MeshCreate(vertices, indices);
 		mesh->setBoundingBox(minVertex, maxVertex);
+		mesh->Centro = Centro;
+		mesh->size = glm::abs(Centro - maxVertex);
 		return mesh;
 
 	}

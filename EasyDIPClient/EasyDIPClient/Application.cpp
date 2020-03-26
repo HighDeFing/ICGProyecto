@@ -138,6 +138,7 @@ glm::mat4 orthogonal;
 static int picked = -1;
 static int light_picked = -1;
 
+//SCENE
 std::vector <Mesh *> model;
 Light *lights;
 
@@ -171,6 +172,7 @@ int texture_mode = 0;
 //GAME
 Mesh *Map;
 Mesh *Character;
+Mesh *Ending;
 
 Application::Application() {
 
@@ -333,8 +335,13 @@ void Application::MainLoop()
 		ImGui::Render();
 		Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
+		Game* game = new Game();
+		if (game->Check_Collision(Character, Ending))
+		{
+			std::cout << "ok";
+		}
 		glfwSwapBuffers(window);
+      
 	}
 }
 
@@ -406,45 +413,45 @@ void Application::processInput()
 		move = false;
 
 	//Character move
-	float move_pase = 0.008f;
+	float move_pase = 0.020f;
 	if (Character) {
 		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		{
-			if(Character->vec4ftraslate.x + move_pase <= 0.437)
+			if(Character->vec4ftraslate.x + move_pase <= 4.180)
 			Character->vec4ftraslate.x += move_pase;
 			else
 			{
-				Character->vec4ftraslate.x = 0.437;
+				Character->vec4ftraslate.x = 4.180;
 			}
 		}
 
 		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
 		{
-			if (Character->vec4ftraslate.x - move_pase >= -0.436)
+			if (Character->vec4ftraslate.x - move_pase >= -4.180)
 				Character->vec4ftraslate.x -= move_pase;
 			else
 			{
-				Character->vec4ftraslate.x = -0.436;
+				Character->vec4ftraslate.x = -4.180;
 			}
 		}
 
 		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		{
-			if(Character->vec4ftraslate.z + move_pase <= 0.434)
+			if(Character->vec4ftraslate.z + move_pase <= 4.160)
 			Character->vec4ftraslate.z += move_pase;
 			else 
 			{
-				Character->vec4ftraslate.z = 0.434;
+				Character->vec4ftraslate.z = 4.160;
 			}
 		}
 
 		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		{
-			if (Character->vec4ftraslate.z - move_pase >= -0.435)
+			if (Character->vec4ftraslate.z - move_pase >= -4.160)
 			Character->vec4ftraslate.z -= move_pase;
 			else
 			{
-				Character->vec4ftraslate.z = -0.435;
+				Character->vec4ftraslate.z = -4.160;
 			}
 		}
 
@@ -468,6 +475,7 @@ void Application::Render()
 		proj = glm::perspective(glm::radians(fov), (float)windowWidth / (float)windowHeight, NCP, 1000.0f);
 	}
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	//std::cout << glm::to_string(cameraFront);
 
 	if (Map) 
 	{
@@ -498,6 +506,23 @@ void Application::Render()
 			Character->setView(view);
 			Character->setproj(proj);
 			Character->Draw();
+		}
+	}
+
+	if (Ending)
+	{
+		if (bwShader)
+		{
+			//std::cout << "X:" << Character->vec4ftraslate.x << '\n';
+			//std::cout << "Z:" << Character->vec4ftraslate.z << '\n';
+			bwShader->use();
+			bwShader->setVec3("cameraPos", cameraPos);
+			Ending->setmodelMatrix();
+			Ending->BindTexture();
+			Ending->Bind();
+			Ending->setView(view);
+			Ending->setproj(proj);
+			Ending->Draw();
 		}
 	}
 
@@ -929,7 +954,9 @@ void Application::Init() {
 	//*bwShader = mainShader;
 	SetMap();
 	SetCharacter();
+	SetEnd();
 	Enable_Zbuffer();
+	SetCamaraPos();
 	
 }
 
@@ -941,9 +968,9 @@ void Application::SetMap()
 	Map->relleno = true;
 	Map->back_face_culling = true;
 	Map->zbuffer = true;
-	Map->vec4fscale.x = 0.5f;
-	Map->vec4fscale.y = 0.5f;
-	Map->vec4fscale.z = 0.5f;
+	Map->vec4fscale.x = 4.540f;
+	Map->vec4fscale.y = 4.540f;
+	Map->vec4fscale.z = 4.540f;
 }
 
 void Application::Enable_Zbuffer()
@@ -951,6 +978,32 @@ void Application::Enable_Zbuffer()
 	glEnable(GL_DEPTH_TEST);
 	//glDepthMask(GL_FALSE);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Application::SetCamaraPos()
+{
+	cameraPos = glm::vec3(-3.483538, 2.790275, 7.357938);
+	cameraFront = glm::vec3(0.004687, -0.446198, -0.894922);
+}
+
+void Application::SetEnd()
+{
+	Ending = new Mesh();
+	Ending = CG::Load("./../Character/character.obj");
+	Ending->loadCreateTexture("./../texture/container.jpg");
+	Ending->only_color = false;
+	Ending->only_texture = true;
+	Ending->texture_drawing = true;
+	Ending->zbuffer = true;
+	Ending->mallado = true;
+	Ending->relleno = true;
+	Ending->back_face_culling = true;
+	Ending->vec4fscale.x = 0.140f;
+	Ending->vec4fscale.y = 0.140f;
+	Ending->vec4fscale.z = 0.140f;
+	Ending->vec4ftraslate.x = -2.180f;
+	Ending->vec4ftraslate.y = 0.080f;
+	Ending->vec4ftraslate.z = -3.160f;
 }
 
 void Application::SetCharacter()
@@ -965,12 +1018,12 @@ void Application::SetCharacter()
 	Character->mallado = true;
 	Character->relleno = true;
 	Character->back_face_culling = true;
-	Character->vec4fscale.x = 0.04f;
-	Character->vec4fscale.y = 0.04f;
-	Character->vec4fscale.z = 0.04f;
-	Character->vec4ftraslate.x = -0.4f;
-	Character->vec4ftraslate.y = 0.035f;
-	Character->vec4ftraslate.z = 0.42f;
+	Character->vec4fscale.x = 0.140f;
+	Character->vec4fscale.y = 0.140f;
+	Character->vec4fscale.z = 0.140f;
+	Character->vec4ftraslate.x = -4.180f;
+	Character->vec4ftraslate.y = 0.080f;
+	Character->vec4ftraslate.z = 4.160f;
 }
 
 void Application::HelpMarker(const char* desc)
@@ -985,3 +1038,19 @@ void Application::HelpMarker(const char* desc)
 		ImGui::EndTooltip();
 	}
 }
+
+
+
+//bool Application::Check_Collision(Mesh *one, Mesh *two)
+//{
+//	// Collision x-axis?
+//	bool collisionX = glm::abs((one->vec4ftraslate.x+one->size.x) - (two->vec4ftraslate.x+two->size.x)) <= glm::abs((2*two->size.x*two->vec4fscale.x));
+//	
+//	/*std::cout << "glm::abs((one->vec4ftraslate.x+one->size.x) - (two->vec4ftraslate.x+two->size.x))=" << glm::abs((one->vec4ftraslate.x + one->size.x) - (two->vec4ftraslate.x + two->size.x)) << '\n';
+//	std::cout << "2*two->size.x*two->vec4fscale.x" << 2*two->size.x*two->vec4fscale.x << '\n';*/
+//	// Collision z-axis?
+//	bool collisionZ = glm::abs((one->vec4ftraslate.z + one->size.z) - (two->vec4ftraslate.z + two->size.z)) <= glm::abs((2 * two->size.z * two->vec4fscale.z));
+//
+//	return collisionX && collisionZ;
+//
+//}

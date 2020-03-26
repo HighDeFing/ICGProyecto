@@ -5,7 +5,6 @@
 
 #include <glad/glad.h>
 #include "glm/gtx/string_cast.hpp"
-#include "EDpch.h"
 #include <glm/vec3.hpp>
 #include <glm/glm.hpp>
 #include <filesystem> 

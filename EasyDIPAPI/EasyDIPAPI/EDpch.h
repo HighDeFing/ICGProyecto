@@ -17,6 +17,8 @@
 #include "Mesh.h"
 #include "Light.h"
 #include "shaders/Shader.h"
+#include "Camera.h"
+#include "Game.h"
 //Shader
 using RawData = unsigned char;
 

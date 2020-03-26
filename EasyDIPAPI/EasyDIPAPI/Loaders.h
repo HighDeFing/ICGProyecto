@@ -9,6 +9,7 @@ namespace CG
 		glm::vec3 v1;
 		glm::vec3 v2;
 		glm::vec3 normal;
+		unsigned int index;
 	};
 
 	Mesh* Load(const std::string path);

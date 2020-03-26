@@ -41,6 +41,9 @@ public:
 	void SetCharacter();
 	void SetMap();
 	void Enable_Zbuffer();
+	void SetCamaraPos();
+	void SetEnd();
+	//bool Check_Collision(Mesh* one, Mesh* two);
 	
 	static void HelpMarker(const char* desc);
 
