@@ -173,6 +173,7 @@ int texture_mode = 0;
 Mesh *Map;
 Mesh *Character;
 Mesh *Ending;
+Game *game;
 
 Application::Application() {
 
@@ -335,10 +336,11 @@ void Application::MainLoop()
 		ImGui::Render();
 		Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-		Game* game = new Game();
+		//TODO with the rest of the objects this only does one
 		if (game->Check_Collision(Character, Ending))
 		{
-			std::cout << "ok";
+			//std::cout << "ok";
+			game->Resolve_collition(Character, Ending);
 		}
 		glfwSwapBuffers(window);
       
@@ -417,41 +419,86 @@ void Application::processInput()
 	if (Character) {
 		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		{
-			if(Character->vec4ftraslate.x + move_pase <= 4.180)
-			Character->vec4ftraslate.x += move_pase;
-			else
-			{
-				Character->vec4ftraslate.x = 4.180;
-			}
+				if (Character->vec4ftraslate.x + move_pase <= 4.180)
+					Character->vec4ftraslate.x += move_pase;
+				else
+				{
+					Character->vec4ftraslate.x = 4.180;
+				}
+			
 		}
-
 		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
 		{
-			if (Character->vec4ftraslate.x - move_pase >= -4.180)
-				Character->vec4ftraslate.x -= move_pase;
-			else
-			{
-				Character->vec4ftraslate.x = -4.180;
-			}
+				if (Character->vec4ftraslate.x - move_pase >= -4.180)
+					Character->vec4ftraslate.x -= move_pase;
+				else
+				{
+					Character->vec4ftraslate.x = -4.180;
+				}
+	
 		}
 
 		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		{
-			if(Character->vec4ftraslate.z + move_pase <= 4.160)
-			Character->vec4ftraslate.z += move_pase;
-			else 
-			{
-				Character->vec4ftraslate.z = 4.160;
-			}
+				if (Character->vec4ftraslate.z + move_pase <= 4.160)
+					Character->vec4ftraslate.z += move_pase;
+				else
+				{
+					Character->vec4ftraslate.z = 4.160;
+				}
 		}
 
 		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		{
-			if (Character->vec4ftraslate.z - move_pase >= -4.160)
-			Character->vec4ftraslate.z -= move_pase;
+				if (Character->vec4ftraslate.z - move_pase >= -4.160)
+					Character->vec4ftraslate.z -= move_pase;
+				else
+				{
+					Character->vec4ftraslate.z = -4.160;
+				}
+		}
+
+	}
+
+	if (Ending) {
+		if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+		{
+			if (Ending->vec4ftraslate.x + move_pase <= 4.180)
+				Ending->vec4ftraslate.x += move_pase;
 			else
 			{
-				Character->vec4ftraslate.z = -4.160;
+				Ending->vec4ftraslate.x = 4.180;
+			}
+
+		}
+		if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+		{
+			if (Ending->vec4ftraslate.x - move_pase >= -4.180)
+				Ending->vec4ftraslate.x -= move_pase;
+			else
+			{
+				Ending->vec4ftraslate.x = -4.180;
+			}
+
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+		{
+			if (Ending->vec4ftraslate.z + move_pase <= 4.160)
+				Ending->vec4ftraslate.z += move_pase;
+			else
+			{
+				Ending->vec4ftraslate.z = 4.160;
+			}
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
+		{
+			if (Ending->vec4ftraslate.z - move_pase >= -4.160)
+				Ending->vec4ftraslate.z -= move_pase;
+			else
+			{
+				Ending->vec4ftraslate.z = -4.160;
 			}
 		}
 
@@ -957,6 +1004,8 @@ void Application::Init() {
 	SetEnd();
 	Enable_Zbuffer();
 	SetCamaraPos();
+	game = new Game();
+	game->Character = Character;
 	
 }
 
