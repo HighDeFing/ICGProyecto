@@ -1042,6 +1042,45 @@ void Application::Init() {
 	mesh = new Mesh();
 	mesh = CG::Load("./../Modelo/pilar.obj");
 	game->load_wall2(mesh);
+	
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall3(mesh);
+	
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall4(mesh);
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall5(mesh);
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall6(mesh);
+
+
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall7(mesh);
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall8(mesh);
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall9(mesh);
+
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall10(mesh);
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall11(mesh);
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall12(mesh);
+
+
+
+
 }
 
 void Application::SetMap()
