@@ -175,6 +175,7 @@ Mesh *Map;
 Mesh *Character;
 Mesh *Ending;
 Game *game;
+bool reach_end;
 
 Application::Application() {
 
@@ -461,7 +462,7 @@ void Application::processInput()
 
 	}
 
-	if (Ending) {
+	/*if (Ending) {
 		if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
 		{
 			if (Ending->vec4ftraslate.x + move_pase <= 4.180)
@@ -503,7 +504,7 @@ void Application::processInput()
 			}
 		}
 
-	}
+	}*/
 
 
 }
@@ -640,8 +641,14 @@ void Application::ImGui()
 {
 
 	//ImGui::SliderFloat("test", &test, 0, 1);
+	if (reach_end) {
+		ImGui::Begin("You Win");
+		ImGui::Text("You Win!");
+		ImGui::End();
+	}
 
 	ImGui::Begin("Convolution Editor");
+	ImGui::Checkbox("Reach End", &reach_end);
 	if (ImGui::Button("Load Model"))
 	{
 		string a = openfilename();
@@ -1031,7 +1038,10 @@ void Application::Init() {
 	game->Character = Character;
 	Mesh* mesh = new Mesh();
 	mesh = CG::Load("./../Modelo/pilar.obj");
-	game->load_models(mesh);
+	game->load_wall1(mesh);
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_wall2(mesh);
 }
 
 void Application::SetMap()

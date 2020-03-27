@@ -40,7 +40,7 @@ public:
 		return collisionX && collisionZ;
 	}
 
-	void Check_walls()
+	void Check_walls1()
 	{
 		float xmin = -3.48f; float zmin = 4.20; float xmax = -2.96; float zmax = -2.3;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
@@ -59,9 +59,30 @@ public:
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
 				Character->vec4ftraslate.z = zmax;
 		}
+	}
+
+	void Check_walls2()
+	{
+		float xmin = -2.37f; float zmin = 2.4; float xmax = -1.9f; float zmax = -4.20;
+		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
+		{//is in box
+			//is right
+			if (Character->vec4ftraslate.x - move_pase <= xmin)
+				Character->vec4ftraslate.x = xmin;
+			//is left
+			if (Character->vec4ftraslate.x + move_pase >= xmax)
+				Character->vec4ftraslate.x = xmax;
+			//is down
+			if (Character->vec4ftraslate.z + move_pase >= zmin)
+				Character->vec4ftraslate.z = zmin;
+			//is up
+			if (Character->vec4ftraslate.z - move_pase <= zmax)
+				Character->vec4ftraslate.z = zmax;
+		}
+	}
 
 		
-	}
+	
 
 	//this gets the best direction where to bounce too.
 	Direction VectorDirection(glm::vec2 target)
@@ -174,7 +195,8 @@ public:
 	{
 		std::cout <<"X:" << Character->vec4ftraslate.x << "\n";
 		std::cout <<"Z:" << Character->vec4ftraslate.z << "\n";
-		Check_walls();
+		Check_walls1();
+		Check_walls2();
 		if (walls.size() > 0) {
 			for (int i = 0; i < walls.size(); i++)
 			{
@@ -194,7 +216,7 @@ public:
 	 }
 
 	//TODO load the rest of the objects of the map
-	void load_models(Mesh *mesh)
+	void load_wall1(Mesh *mesh)
 	{
 		mesh->loadCreateTexture("./../texture/container.jpg");
 		mesh->only_color = false;
@@ -210,6 +232,29 @@ public:
 		mesh->vec4ftraslate.x = -3.240f;
 		mesh->vec4ftraslate.y = 0.000f;
 		mesh->vec4ftraslate.z = 1.180f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		walls.push_back(mesh);
+	}
+
+	void load_wall2(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 2.410;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 2.800f;
+		mesh->vec4ftraslate.x = -2.200f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = -1.020f;
 		mesh->Qrotacion[0] = 0.000;
 		mesh->Qrotacion[1] = -0.71;
 		mesh->Qrotacion[2] = 0.000;
