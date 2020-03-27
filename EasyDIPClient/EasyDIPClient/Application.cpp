@@ -181,6 +181,7 @@ Mesh *Character;
 Mesh *Ending;
 Game *game;
 bool reach_end;
+bool one_win = true;
 float points = 0;
 
 //COINS
@@ -409,6 +410,7 @@ void Application::MainLoop()
 		// Rendering
 		Win();
 		Get_Points();
+		Lose_Points();
 		ImGui::Render();
 		Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -1106,7 +1108,7 @@ void Application::ImGui()
 }
 
 void Application::Init() {
-	SoundEngine->play2D("./../music/breakout.mp3", GL_TRUE);
+	SoundEngine->play2D("./../music/lily.mp3", GL_TRUE);
 	//Shader mainShader(vertexPath, fragmentPath, nullptr);
 	bwShader = new Shader(vertexPath, fragmentPath, NULL);
 	lampShader = new Shader(vertex_LightPath, fragment_LightPath, NULL);
@@ -1246,12 +1248,16 @@ void Application::SetLight()
 
 void Application::Win()
 {
-	std::cout << "X:" << Character->vec4ftraslate.x << "\n"; std::cout << "Z:" << Character->vec4ftraslate.z << "\n";
+	//std::cout << "X:" << Character->vec4ftraslate.x << "\n"; std::cout << "Z:" << Character->vec4ftraslate.z << "\n";
 	float xmin = 3.74; float zmin = -3.72; float xmax = 4.18; float zmax = -4.20;
 	if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 	{
 		std::cout << "yes" << "\n";
 		reach_end = true;
+		if (one_win) {
+			SoundEngine->play2D("./../music/win.mp3", GL_FALSE);
+			one_win = false;
+		}
 	}
 	else reach_end = false;
 }
@@ -1283,6 +1289,15 @@ void Application::Get_Points()
 		SoundEngine->play2D("./../music/coin.mp3", GL_FALSE);
 		points += 100;
 		only_once1 = false;
+	}
+}
+
+void Application::Lose_Points()
+{
+	if (game->hitting_wall)
+	{
+		SoundEngine->play2D("./../music/bruh.mp3", GL_FALSE);
+		points -= 10;
 	}
 }
 

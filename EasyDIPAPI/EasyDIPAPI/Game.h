@@ -23,10 +23,11 @@ public:
 	glm::mat4 proj;
 	std::vector <Mesh*> walls;
 	std::vector <Mesh*> coins;
+	bool hitting_wall = false;
 
 	const float smooth_collition = 0.17;
 
-	float move_pase = 0.020f;
+	float move_pase = 0.020f*8;
 	float radious = 1.20;
 	bool Check_Collision(Mesh* one, Mesh* two)
 	{
@@ -41,7 +42,7 @@ public:
 		return collisionX && collisionZ;
 	}
 
-	void Check_walls1()
+	bool Check_walls1()
 	{
 		float xmin = -3.48f; float zmin = 4.20; float xmax = -2.96; float zmax = -2.3;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
@@ -49,237 +50,273 @@ public:
 
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase>= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls2()
+	bool Check_walls2()
 	{
 		float xmin = -2.40f; float zmin = 2.4; float xmax = -1.9f; float zmax = -4.20;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls3()
+	bool Check_walls3()
 	{
 		float xmin = -1.34; float zmin = 4.20; float xmax = -0.83f; float zmax = 2.02;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls4()
+	bool Check_walls4()
 	{
 		float xmin = -1.36; float zmin = 0.24; float xmax = -0.89; float zmax = -3.22;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls5()
+	bool Check_walls5()
 	{
 		float xmin = -1.18; float zmin = -2.86; float xmax = 2.24; float zmax = -3.38;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls6()
+	bool Check_walls6()
 	{
 		float xmin = -0.20; float zmin = 3.46; float xmax = 0.259f; float zmax = -2.26;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls7()
+	bool Check_walls7()
 	{
 		float xmin = 0.819; float zmin = 3.38; float xmax = 1.36f; float zmax = -2.26;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls8()
+	bool Check_walls8()
 	{
 		float xmin = 0.859; float zmin = 3.56; float xmax = 2.2f; float zmax = 3.04;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls9()
+	bool Check_walls9()
 	{
 		float xmin = 1.88; float zmin = 3.46; float xmax = 2.38f; float zmax = -2.18;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls10()
+	bool Check_walls10()
 	{
 		float xmin = 2; float zmin = -1.74; float xmax = 3.3f; float zmax = -2.3;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls11()
+	bool Check_walls11()
 	{
 		float xmin = 2.98; float zmin = -1.86; float xmax = 3.44f; float zmax = -4.20;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
-	void Check_walls12()
+	bool Check_walls12()
 	{
 		float xmin = 2.98; float zmin = 4.20; float xmax = 3.48f; float zmax = -1.14;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
+				Character->vec4ftraslate.x -= move_pase;
 			//is left
 			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
+				Character->vec4ftraslate.x += move_pase;
 			//is down
 			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
+				Character->vec4ftraslate.z += move_pase;
 			//is up
 			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+				Character->vec4ftraslate.z -= move_pase;
+			return true;
 		}
+		else
+			return false;
 	}
 
 	bool check_coin1()
@@ -292,6 +329,22 @@ public:
 		}
 		else
 		return false;
+	}
+
+	bool is_in_wall() 
+	{
+		return Check_walls1() ||
+			Check_walls2() ||
+			Check_walls3() ||
+			Check_walls4() ||
+			Check_walls5() ||
+			Check_walls6() ||
+			Check_walls7() ||
+			Check_walls8() ||
+			Check_walls9() ||
+			Check_walls10() ||
+			Check_walls11() ||
+			Check_walls12();
 	}
 		
 	
@@ -407,18 +460,7 @@ public:
 	{
 		//std::cout <<"X:" << Character->vec4ftraslate.x << "\n";
 		//std::cout <<"Z:" << Character->vec4ftraslate.z << "\n";
-		Check_walls1();
-		Check_walls2();
-		Check_walls3();
-		Check_walls4();
-		Check_walls5();
-		Check_walls6();
-		Check_walls7();
-		Check_walls8();
-		Check_walls9();
-		Check_walls10();
-		Check_walls11();
-		Check_walls12();
+		hitting_wall = is_in_wall();
 		check_coin1();
 		if (walls.size() > 0) {
 			for (int i = 0; i < walls.size(); i++)

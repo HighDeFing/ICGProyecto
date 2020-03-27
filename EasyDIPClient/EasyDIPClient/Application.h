@@ -57,6 +57,7 @@ public:
 	void SetLight();
 	void Win();
 	void Get_Points();
+	void Lose_Points();
 	//bool Check_Collision(Mesh* one, Mesh* two);
 	
 	static void HelpMarker(const char* desc);
