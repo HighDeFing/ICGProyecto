@@ -1163,7 +1163,25 @@ void Application::Init() {
 	mesh = CG::Load("./../Modelo/pilar.obj");
 	game->load_wall12(mesh);
 
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/dogecoin.obj");
+	game->load_coin1(mesh);
 
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/dogecoin.obj");
+	game->load_coin2(mesh);
+
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/dogecoin.obj");
+	game->load_coin3(mesh);
+
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/dogecoin.obj");
+	game->load_coin4(mesh);
+
+	mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/dogecoin.obj");
+	game->load_coin5(mesh);
 
 
 }

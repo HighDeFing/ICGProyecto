@@ -794,6 +794,121 @@ public:
 	}
 
 
+	void load_coin1(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/gold.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 0.250;
+		mesh->vec4fscale.y = 0.250f;
+		mesh->vec4fscale.z = 0.250f;
+		mesh->vec4ftraslate.x = -2.720f;
+		mesh->vec4ftraslate.y = 0.140f;
+		mesh->vec4ftraslate.z = 0.000f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		coins.push_back(mesh);
+	}
+
+	void load_coin2(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/gold.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 0.250;
+		mesh->vec4fscale.y = 0.250f;
+		mesh->vec4fscale.z = 0.250f;
+		mesh->vec4ftraslate.x = -1.060f;
+		mesh->vec4ftraslate.y = 0.140f;
+		mesh->vec4ftraslate.z = 1.040f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		coins.push_back(mesh);
+	}
+
+	void load_coin3(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/gold.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 0.250;
+		mesh->vec4fscale.y = 0.250f;
+		mesh->vec4fscale.z = 0.250f;
+		mesh->vec4ftraslate.x = 1.7200f;
+		mesh->vec4ftraslate.y = 0.140f;
+		mesh->vec4ftraslate.z = 2.700f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		coins.push_back(mesh);
+	}
+
+	void load_coin4(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/gold.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 0.250;
+		mesh->vec4fscale.y = 0.250f;
+		mesh->vec4fscale.z = 0.250f;
+		mesh->vec4ftraslate.x = 2.720f;
+		mesh->vec4ftraslate.y = 0.140f;
+		mesh->vec4ftraslate.z = -2.800f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		coins.push_back(mesh);
+	}
+
+	void load_coin5(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/gold.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 0.250;
+		mesh->vec4fscale.y = 0.250f;
+		mesh->vec4fscale.z = 0.250f;
+		mesh->vec4ftraslate.x = 3.780f;
+		mesh->vec4ftraslate.y = 0.140f;
+		mesh->vec4ftraslate.z = 2.800f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		coins.push_back(mesh);
+	}
+
 
 
 
