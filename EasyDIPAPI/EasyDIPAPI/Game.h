@@ -490,7 +490,7 @@ public:
 			}
 		}
 	 }
-
+	/*
 	void load_coin1(Mesh* mesh) 
 	{
 		mesh->loadCreateTexture("./../texture/container.jpg");
@@ -512,7 +512,7 @@ public:
 		mesh->Qrotacion[2] = 0.000;
 		mesh->Qrotacion[3] = 0.70;
 		walls.push_back(mesh);
-	}
+	}*/
 	//TODO load the rest of the objects of the map
 	void load_wall1(Mesh *mesh)
 	{
