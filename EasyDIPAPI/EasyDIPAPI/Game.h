@@ -22,6 +22,7 @@ public:
 	glm::mat4 view;
 	glm::mat4 proj;
 	std::vector <Mesh*> walls;
+	std::vector <Mesh*> coins;
 
 	const float smooth_collition = 0.17;
 
@@ -280,6 +281,26 @@ public:
 				Character->vec4ftraslate.z = zmax;
 		}
 	}
+
+	void check_coin1()
+	{
+		float xmin = 2.98; float zmin = 4.20; float xmax = 3.48f; float zmax = -1.14;
+		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
+		{//is in box
+			//is right
+			if (Character->vec4ftraslate.x - move_pase <= xmin)
+				Character->vec4ftraslate.x = xmin;
+			//is left
+			if (Character->vec4ftraslate.x + move_pase >= xmax)
+				Character->vec4ftraslate.x = xmax;
+			//is down
+			if (Character->vec4ftraslate.z + move_pase >= zmin)
+				Character->vec4ftraslate.z = zmin;
+			//is up
+			if (Character->vec4ftraslate.z - move_pase <= zmax)
+				Character->vec4ftraslate.z = zmax;
+		}
+	}
 		
 	
 
@@ -409,7 +430,18 @@ public:
 		if (walls.size() > 0) {
 			for (int i = 0; i < walls.size(); i++)
 			{
+				
 				if (bwShader) {
+					if (i < coins.size()) {
+						bwShader->use();
+						bwShader->setVec3("cameraPos", cameraPos);
+						coins[i]->setmodelMatrix();
+						coins[i]->BindTexture();
+						coins[i]->Bind();
+						coins[i]->setView(view);
+						coins[i]->setproj(proj);
+						coins[i]->Draw();
+					}
 					bwShader->use();
 					bwShader->setVec3("cameraPos", cameraPos);
 					walls[i]->setmodelMatrix();
@@ -424,6 +456,28 @@ public:
 		}
 	 }
 
+	void load_coin1(Mesh* mesh) 
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 2.410;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 2.800f;
+		mesh->vec4ftraslate.x = -3.240f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = 1.180f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		walls.push_back(mesh);
+	}
 	//TODO load the rest of the objects of the map
 	void load_wall1(Mesh *mesh)
 	{
