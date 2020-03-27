@@ -262,4 +262,242 @@ public:
 		walls.push_back(mesh);
 	}
 
+	void load_wall3(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 2.410;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 0.900f;
+		mesh->vec4ftraslate.x = -1.100f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = 3.260f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		walls.push_back(mesh);
+	}
+
+
+
+	void load_wall4(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 2.410;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 2.280f;
+		mesh->vec4ftraslate.x = 0.000f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = 0.600f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		walls.push_back(mesh);
+	}
+
+
+	void load_wall5(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 2.410;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 1.340f;
+		mesh->vec4ftraslate.x = -1.100f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = -1.500f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		walls.push_back(mesh);
+	}
+
+	void load_wall6(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 2.410;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 2.280f;
+		mesh->vec4ftraslate.x = 1.080f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = 0.580f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		walls.push_back(mesh);
+	}
+
+	void load_wall7(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 2.410;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 2.280f;
+		mesh->vec4ftraslate.x = 2.120f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = 0.630f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		walls.push_back(mesh);
+	}
+
+	void load_wall8(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 2.410;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 2.280f;
+		mesh->vec4ftraslate.x = 3.220f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = 1.680f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		walls.push_back(mesh);
+	}
+
+	void load_wall9(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 2.410;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 0.950f;
+		mesh->vec4ftraslate.x = 3.220f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = -3.120f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = -0.71;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 0.70;
+		walls.push_back(mesh);
+	}
+
+	void load_wall10(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 1.340;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 2.800f;
+		mesh->vec4ftraslate.x = 0.520f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = -3.080f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = 0.000;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 1.000;
+		walls.push_back(mesh);
+	}
+
+	void load_wall11(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 0.430;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 2.800f;
+		mesh->vec4ftraslate.x = 2.660f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = -2.000f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = 0.000;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 1.000;
+		walls.push_back(mesh);
+	}
+
+	void load_wall12(Mesh* mesh)
+	{
+		mesh->loadCreateTexture("./../texture/container.jpg");
+		mesh->only_color = false;
+		mesh->only_texture = true;
+		mesh->texture_drawing = true;
+		mesh->zbuffer = true;
+		mesh->mallado = true;
+		mesh->relleno = true;
+		mesh->back_face_culling = true;
+		mesh->vec4fscale.x = 0.440;
+		mesh->vec4fscale.y = 2.970f;
+		mesh->vec4fscale.z = 2.800f;
+		mesh->vec4ftraslate.x = 1.520f;
+		mesh->vec4ftraslate.y = 0.000f;
+		mesh->vec4ftraslate.z = 3.300f;
+		mesh->Qrotacion[0] = 0.000;
+		mesh->Qrotacion[1] = 0.000;
+		mesh->Qrotacion[2] = 0.000;
+		mesh->Qrotacion[3] = 1.000;
+		walls.push_back(mesh);
+	}
+
+
+
+
+
 };
+
