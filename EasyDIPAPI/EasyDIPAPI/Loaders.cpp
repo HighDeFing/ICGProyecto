@@ -190,12 +190,13 @@ namespace CG
 		maxVertex = glm::vec3(xMax, yMax, zMax);
 
 
-
+		
 		Mesh *mesh = new Mesh();
 		mesh->MeshCreate(vertices, indices);
 		mesh->setBoundingBox(minVertex, maxVertex);
 		mesh->Centro = Centro;
 		mesh->size = glm::abs(Centro - maxVertex);
+		mesh->minsize = MIN(MIN(mesh->size.x, mesh->size.y), mesh->size.z);
 		return mesh;
 
 	}

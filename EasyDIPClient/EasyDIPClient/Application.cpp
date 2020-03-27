@@ -127,6 +127,7 @@ static float col5[4] = { 1.0f,1.0f,1.0f, 1.0f };
 static float normal_size = 0.5f;
 static float vec4fs[4] = { 0.5f, 0.5f, 0.5f, 0.5f };
 static float vec4ft[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+static float vec4rot[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
 static float light_vec4fs[4] = { 0.5f, 0.5f, 0.5f, 0.5f };
 static float light_vec4ft[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
@@ -337,11 +338,11 @@ void Application::MainLoop()
 		Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		//TODO with the rest of the objects this only does one
-		if (game->Check_Collision(Character, Ending))
-		{
-			//std::cout << "ok";
-			game->Resolve_collition(Character, Ending);
-		}
+		//if (game->Check_Collision(Character, Ending))
+		//{
+		//	//std::cout << "ok";
+		//	game->Resolve_collition(Character, Ending);
+		//}
 		glfwSwapBuffers(window);
       
 	}
@@ -572,7 +573,10 @@ void Application::Render()
 			Ending->Draw();
 		}
 	}
-
+	game->cameraPos = cameraPos;
+	game->view = view;
+	game->proj = proj;
+	game->draw_objects_map();
 	if (model.size() > 0) {
 		for (int i = 0; i < model.size(); i++)
 		{
@@ -641,11 +645,13 @@ void Application::ImGui()
 	if (ImGui::Button("Load Model"))
 	{
 		string a = openfilename();
-		Mesh* mesh = new Mesh();
-		mesh = CG::Load(a);
-		model.push_back(mesh);
-		picked = model.size() - 1;
-		Iwant_torotate = false;
+		if (!a.empty()) {
+			Mesh* mesh = new Mesh();
+			mesh = CG::Load(a);
+			model.push_back(mesh);
+			picked = model.size() - 1;
+			Iwant_torotate = false;
+		}
 	}
 
 	ImGui::Text("Backgound color button with Picker:");
@@ -878,6 +884,22 @@ void Application::ImGui()
 				ImGui::gizmo3D("##gizmo1", qRot /*, size,  mode */);
 			}
 			model[picked]->Qrotacion = qRot;
+
+			vec4rot[0] = model[picked]->Qrotacion[0];
+			vec4rot[1] = model[picked]->Qrotacion[1];
+			vec4rot[2] = model[picked]->Qrotacion[2];
+			vec4rot[3] = model[picked]->Qrotacion[3];
+
+			ImGui::DragFloat("Rot X", &vec4rot[0], 0.01f);
+			ImGui::DragFloat("Rot Y", &vec4rot[1], 0.01f);
+			ImGui::DragFloat("Rot Z", &vec4rot[2], 0.01f);
+			ImGui::DragFloat("Rot W", &vec4rot[3], 0.01f);
+
+			//std::cout <<"qRot[0]"<< qRot[0] << '\n';
+			//std::cout <<"qRot[1]"<< qRot[1] << '\n';
+			//std::cout <<"qRot[2]"<< qRot[2] << '\n';
+			//std::cout <<"qRot[3]"<< qRot[3] << '\n';
+
 			//Traslate, scale
 			ImGui::Text("X, Y, Z");
 			vec4fs[0] = model[picked]->vec4fscale.x;
@@ -1004,9 +1026,12 @@ void Application::Init() {
 	SetEnd();
 	Enable_Zbuffer();
 	SetCamaraPos();
+	SetLight();
 	game = new Game();
 	game->Character = Character;
-	
+	Mesh* mesh = new Mesh();
+	mesh = CG::Load("./../Modelo/pilar.obj");
+	game->load_models(mesh);
 }
 
 void Application::SetMap()
@@ -1038,8 +1063,8 @@ void Application::SetCamaraPos()
 void Application::SetEnd()
 {
 	Ending = new Mesh();
-	Ending = CG::Load("./../Character/character.obj");
-	Ending->loadCreateTexture("./../texture/container.jpg");
+	Ending = CG::Load("./../Modelo/ending.obj");
+	Ending->loadCreateTexture("./../texture/ending.png");
 	Ending->only_color = false;
 	Ending->only_texture = true;
 	Ending->texture_drawing = true;
@@ -1047,12 +1072,44 @@ void Application::SetEnd()
 	Ending->mallado = true;
 	Ending->relleno = true;
 	Ending->back_face_culling = true;
-	Ending->vec4fscale.x = 0.140f;
-	Ending->vec4fscale.y = 0.140f;
-	Ending->vec4fscale.z = 0.140f;
-	Ending->vec4ftraslate.x = -2.180f;
-	Ending->vec4ftraslate.y = 0.080f;
-	Ending->vec4ftraslate.z = -3.160f;
+	Ending->vec4fscale.x = 0.230f;
+	Ending->vec4fscale.y = 0.230f;
+	Ending->vec4fscale.z = 0.230f;
+	Ending->vec4ftraslate.x = 4.100f;
+	Ending->vec4ftraslate.y = 0.000f;
+	Ending->vec4ftraslate.z = -4.100f;
+}
+
+void Application::SetLight()
+{
+	Light* light = new Light();
+	light->setupMesh();
+	lights = light;
+	only_one_light1 = true;
+	lights->colorrelleno = glm::vec4(light_col[0], light_col[1], light_col[2], light_col[3]);
+	lights->bambient = true;
+	lights->bdiffuse = true;
+	lights->bspecular = true;
+
+	//intensitivity
+	lights->intensity_ambiental = 0.9;
+	lights->intensity_specular = 0.3;
+
+	//Traslate, scale
+	lights->vec4fscale[0] = 0.23;
+	lights->vec4fscale[1] = 0.23;
+	lights->vec4fscale[2] = 0.23;
+;
+	lights->vec4ftraslate[0] = -4.960;
+	lights->vec4ftraslate[1] = 6.760;
+	lights->vec4ftraslate[2] = 0.060;
+	glm::vec3 auxs_light(lights->vec4fscale[0], lights->vec4fscale[1], lights->vec4fscale[2]);
+	glm::vec3 auxt_light(lights->vec4ftraslate[0], lights->vec4ftraslate[1], lights->vec4ftraslate[2]);
+	light_modelMatrix = glm::mat4(1.0f);
+	light_modelMatrix = glm::translate(light_modelMatrix, auxt_light);
+	light_modelMatrix = glm::scale(light_modelMatrix, auxs_light);
+	lights->setmodelMatrix(light_modelMatrix);
+
 }
 
 void Application::SetCharacter()

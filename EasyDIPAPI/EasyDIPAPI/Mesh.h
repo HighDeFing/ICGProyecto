@@ -49,6 +49,7 @@ public:
 
 	glm::vec3 Centro;
 	glm::vec3 size;
+	float minsize;
 	
 	float mBColor[3];
 

@@ -43,6 +43,7 @@ public:
 	void Enable_Zbuffer();
 	void SetCamaraPos();
 	void SetEnd();
+	void SetLight();
 	//bool Check_Collision(Mesh* one, Mesh* two);
 	
 	static void HelpMarker(const char* desc);
