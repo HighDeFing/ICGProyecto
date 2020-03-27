@@ -1248,11 +1248,11 @@ void Application::SetLight()
 
 void Application::Win()
 {
-	//std::cout << "X:" << Character->vec4ftraslate.x << "\n"; std::cout << "Z:" << Character->vec4ftraslate.z << "\n";
+	std::cout << "X:" << Character->vec4ftraslate.x << "\n"; std::cout << "Z:" << Character->vec4ftraslate.z << "\n";
 	float xmin = 3.74; float zmin = -3.72; float xmax = 4.18; float zmax = -4.20;
 	if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 	{
-		std::cout << "yes" << "\n";
+		//std::cout << "yes" << "\n";
 		reach_end = true;
 		if (one_win) {
 			SoundEngine->play2D("./../music/win.mp3", GL_FALSE);
