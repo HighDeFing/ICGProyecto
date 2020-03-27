@@ -333,6 +333,9 @@ public:
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{
 			std::cout << "yes" << std::endl;
+			coins[0]->vec4fscale.x = 0.000f;
+			coins[0]->vec4fscale.y = 0.000f;
+			coins[0]->vec4fscale.z = 0.000f;
 			return true;
 		}
 		else
@@ -346,6 +349,9 @@ public:
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{
 			std::cout << "yes" << std::endl;
+			coins[1]->vec4fscale.x = 0.000f;
+			coins[1]->vec4fscale.y = 0.000f;
+			coins[1]->vec4fscale.z = 0.000f;
 			return true;
 		}
 		else
@@ -360,6 +366,9 @@ public:
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{
 			std::cout << "yes" << std::endl;
+			coins[2]->vec4fscale.x = 0.000f;
+			coins[2]->vec4fscale.y = 0.000f;
+			coins[2]->vec4fscale.z = 0.000f;
 			return true;
 		}
 		else
@@ -374,6 +383,9 @@ public:
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{
 			std::cout << "yes" << std::endl;
+			coins[3]->vec4fscale.x = 0.000f;
+			coins[3]->vec4fscale.y = 0.000f;
+			coins[3]->vec4fscale.z = 0.000f;
 			return true;
 		}
 		else
@@ -388,6 +400,9 @@ public:
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{
 			std::cout << "yes" << std::endl;
+			coins[4]->vec4fscale.x = 0.000f;
+			coins[4]->vec4fscale.y = 0.000f;
+			coins[4]->vec4fscale.z = 0.000f;
 			return true;
 		}
 		else
