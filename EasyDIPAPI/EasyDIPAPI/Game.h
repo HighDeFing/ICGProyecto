@@ -45,7 +45,7 @@ public:
 		float xmin = -3.48f; float zmin = 4.20; float xmax = -2.96; float zmax = -2.3;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
-			std::cout << "yes" << "\n";
+
 			//is right
 			if (Character->vec4ftraslate.x - move_pase <= xmin)
 				Character->vec4ftraslate.x = xmin;
@@ -63,7 +63,7 @@ public:
 
 	void Check_walls2()
 	{
-		float xmin = -2.37f; float zmin = 2.4; float xmax = -1.9f; float zmax = -4.20;
+		float xmin = -2.40f; float zmin = 2.4; float xmax = -1.9f; float zmax = -4.20;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{//is in box
 			//is right
@@ -193,8 +193,8 @@ public:
 	//TODO draw the rest of the objects of the map
 	void draw_objects_map()
 	{
-		std::cout <<"X:" << Character->vec4ftraslate.x << "\n";
-		std::cout <<"Z:" << Character->vec4ftraslate.z << "\n";
+		//std::cout <<"X:" << Character->vec4ftraslate.x << "\n";
+		//std::cout <<"Z:" << Character->vec4ftraslate.z << "\n";
 		Check_walls1();
 		Check_walls2();
 		if (walls.size() > 0) {

@@ -44,6 +44,7 @@ public:
 	void SetCamaraPos();
 	void SetEnd();
 	void SetLight();
+	void Win();
 	//bool Check_Collision(Mesh* one, Mesh* two);
 	
 	static void HelpMarker(const char* desc);
