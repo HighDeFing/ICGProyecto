@@ -15,6 +15,13 @@ class Application
 	//template <typename TT> using ptr = std::shared_ptr<TT>;
 	//ImGui::FileBrowser fileDialog;
 	GLFWwindow *window;
+	std::array< int, 2 > _wndPos{ 0, 0 };
+	std::array< int, 2 > _wndSize{ 0, 0 };
+	std::array< int, 2 > _vpSize{ 0, 0 };
+	bool _updateViewport = true;
+	GLFWmonitor* _monitor = nullptr;
+
+	void Resize(int cx, int cy);
 
 	unsigned int texId = 0;
 	unsigned int texOGImg = 0;
@@ -29,6 +36,10 @@ class Application
 public:
 	Application();
 	~Application();
+
+	static void CallbackResize(GLFWwindow* window, int cx, int cy);
+	bool IsFullscreen(void);
+	void SetFullScreen(bool fullscreen);
 	
 	void processInput();
 	void MainLoop();
@@ -45,6 +56,7 @@ public:
 	void SetEnd();
 	void SetLight();
 	void Win();
+	void Get_Points();
 	//bool Check_Collision(Mesh* one, Mesh* two);
 	
 	static void HelpMarker(const char* desc);

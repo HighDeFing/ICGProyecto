@@ -9,6 +9,7 @@
 #include <string>
 #include <Windows.h>
 #include <WinBase.h>
+#include <irrKlang.h>
 
 
 #include "imgui_impl_glfw.h"

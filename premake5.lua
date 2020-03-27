@@ -9,6 +9,7 @@ IncludeDir["ImGui"] = "dependencies/imgui/"
 IncludeDir["SDL"] = "dependencies/SDL/include"
 IncludeDir["stb"] = "dependencies/stb"
 IncludeDir["GLFW"] = "dependencies/glfw/include"
+IncludeDir["irrKlang"] = "dependencies/irrKlang/include"
 
 workspace "EasyDIP"
 disablewarnings { "26495" }
@@ -32,7 +33,7 @@ project "EasyDIPAPI"
    language "C++"
    cppdialect "C++17"
 
-   files { "%{prj.name}/**.h", "%{prj.name}/**.cpp", "%{prj.name}/shaders/**.*","%{prj.name}/shaders/**.vert","%{prj.name}/shaders/**.frag","%{prj.name}/shaders/**.geom"}
+   files { "%{prj.name}/**.h", "%{prj.name}/**.cpp", "%{prj.name}/shaders/**.*"}
 
    links {
       "glad",
@@ -42,9 +43,8 @@ project "EasyDIPAPI"
 		-- "%{IncludeDir.SDL}",
 		"%{IncludeDir.glad}",
       "%{IncludeDir.stb}",
-      "%{IncludeDir.glm}",
+      "%{IncludeDir.glm}"
       
-
 	}
 
    filter "configurations:Debug"
@@ -115,9 +115,12 @@ project "EasyDIPClient"
       "GLFW",
       -- "dependencies/SDL/VisualC/SDLmain/SDLmain.vcxproj",
       -- "dependencies/SDL/VisualC/SDL/SDL.vcxproj",
-      "ImGui"
+      "ImGui",
+      "irrKlang"
    }
-   libdirs { "../RecastDemo/Contrib/SDL/lib/%{cfg.architecture:gsub('x86_64', 'x64')}" }
+   libdirs { "../RecastDemo/Contrib/SDL/lib/%{cfg.architecture:gsub('x86_64', 'x64')}",
+   	"irrKlang.lib"
+    }
    postbuildcommands {
       -- Copy the SDL2 dll to the Bin folder.
       -- '{COPY} "%{path.getabsolute("Contrib/SDL/lib/" .. cfg.architecture:gsub("x86_64", "x64") .. "/SDL2.dll")}" "%{cfg.targetdir}"'
@@ -131,7 +134,8 @@ project "EasyDIPClient"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
       "%{IncludeDir.stb}",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.irrKlang}"
 	}
 
 

@@ -8,6 +8,11 @@
 #include <Commdlg.h>
 #include <locale>
 #include <codecvt>
+#include <Irrklang/include/irrKlang.h>
+
+using namespace irrklang;
+
+ISoundEngine* SoundEngine = createIrrKlangDevice();
 
 using std::string;
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
@@ -176,6 +181,14 @@ Mesh *Character;
 Mesh *Ending;
 Game *game;
 bool reach_end;
+float points = 0;
+
+//COINS
+bool only_once1 = true;
+
+//MONITOR
+bool fullscreen = false;
+
 
 Application::Application() {
 
@@ -213,6 +226,16 @@ Application::Application() {
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1); // Enable vsync
 
+	//fullscreen
+	glfwSetWindowUserPointer(window, this);
+	glfwSetWindowSizeCallback(window, Application::CallbackResize);
+
+	_monitor = glfwGetPrimaryMonitor();
+	glfwGetWindowSize(window, &_wndSize[0], &_wndSize[1]);
+	glfwGetWindowPos(window, &_wndPos[0], &_wndPos[1]);
+	_updateViewport = true;
+
+	//ednfullscren
 
 	bool err = gladLoadGL() == 0;
 
@@ -274,6 +297,18 @@ Application::Application() {
 	Init();
 }
 
+void Application::CallbackResize(GLFWwindow* window, int cx, int cy)
+{
+	void* ptr = glfwGetWindowUserPointer(window);
+	if (Application* wndPtr = static_cast<Application*>(ptr))
+		wndPtr->Resize(cx, cy);
+}
+
+void Application::Resize(int cx, int cy)
+{
+	_updateViewport = true;
+}
+
 Application::~Application() {
 
 	// Cleanup
@@ -289,13 +324,50 @@ Application::~Application() {
 	//delete bw;
 }
 
+bool Application::IsFullscreen(void)
+{
+	return glfwGetWindowMonitor(window) != nullptr;
+}
+
+void Application::SetFullScreen(bool fullscreen)
+{
+	if (IsFullscreen() == fullscreen)
+		return;
+
+	if (fullscreen)
+	{
+		// backup window position and window size
+		glfwGetWindowPos(window, &_wndPos[0], &_wndPos[1]);
+		glfwGetWindowSize(window, &_wndSize[0], &_wndSize[1]);
+
+		// get resolution of monitor
+		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+		// switch to full screen
+		glfwSetWindowMonitor(window, _monitor, 0, 0, mode->width, mode->height, 0);
+	}
+	else
+	{
+		// restore last window size and position
+		glfwSetWindowMonitor(window, nullptr, _wndPos[0], _wndPos[1], _wndSize[0], _wndSize[1], 0);
+	}
+
+	_updateViewport = true;
+}
 
 void Application::MainLoop()
 {
 	while (!glfwWindowShouldClose(window))
 	{
-		glfwGetFramebufferSize(window, &windowWidth, &windowHeight);
-		glViewport(0, 0, windowWidth, windowHeight);
+		//fullscreen
+		if (_updateViewport)
+		{
+			glfwGetFramebufferSize(window, &_vpSize[0], &_vpSize[1]);
+			glViewport(0, 0, _vpSize[0], _vpSize[1]);
+			_updateViewport = false;
+		}
+		//glfwGetFramebufferSize(window, &windowWidth, &windowHeight);
+		//glViewport(0, 0, windowWidth, windowHeight);
 		glClearColor(col1[0],col1[1],col1[2],col1[3]);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
@@ -336,10 +408,11 @@ void Application::MainLoop()
 
 		// Rendering
 		Win();
+		Get_Points();
 		ImGui::Render();
 		Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-		//TODO with the rest of the objects this only does one
+
 		//if (game->Check_Collision(Character, Ending))
 		//{
 		//	//std::cout << "ok";
@@ -522,6 +595,9 @@ void Application::Render()
 	{
 		//Perspective
 		proj = glm::mat4(1.0f);
+		if (windowHeight == 0) {
+			proj = glm::perspective(glm::radians(fov), (float)windowWidth / 1 , NCP, 1000.0f);
+		} else
 		proj = glm::perspective(glm::radians(fov), (float)windowWidth / (float)windowHeight, NCP, 1000.0f);
 	}
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
@@ -647,6 +723,12 @@ void Application::ImGui()
 		ImGui::Text("You Win!");
 		ImGui::End();
 	}
+
+	ImGui::Begin("Points");
+	ImGui::Text("points = %f",points);
+	ImGui::Checkbox("Full screen", &fullscreen);
+	SetFullScreen(fullscreen);
+	ImGui::End();
 
 	ImGui::Begin("Convolution Editor");
 	if (ImGui::Button("Load Model"))
@@ -1024,6 +1106,7 @@ void Application::ImGui()
 }
 
 void Application::Init() {
+	SoundEngine->play2D("./../music/breakout.mp3", GL_TRUE);
 	//Shader mainShader(vertexPath, fragmentPath, nullptr);
 	bwShader = new Shader(vertexPath, fragmentPath, NULL);
 	lampShader = new Shader(vertex_LightPath, fragment_LightPath, NULL);
@@ -1191,6 +1274,16 @@ void Application::SetCharacter()
 	Character->vec4ftraslate.x = -4.180f;
 	Character->vec4ftraslate.y = 0.080f;
 	Character->vec4ftraslate.z = 4.160f;
+}
+
+void Application::Get_Points()
+{
+	if(game->check_coin1() && only_once1)
+	{
+		SoundEngine->play2D("./../music/coin.mp3", GL_FALSE);
+		points += 100;
+		only_once1 = false;
+	}
 }
 
 void Application::HelpMarker(const char* desc)

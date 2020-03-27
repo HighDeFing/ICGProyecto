@@ -282,24 +282,16 @@ public:
 		}
 	}
 
-	void check_coin1()
+	bool check_coin1()
 	{
-		float xmin = 2.98; float zmin = 4.20; float xmax = 3.48f; float zmax = -1.14;
+		float xmin = -4.08; float zmin = 3.4; float xmax = -3.58f; float zmax = 3.06;
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
-		{//is in box
-			//is right
-			if (Character->vec4ftraslate.x - move_pase <= xmin)
-				Character->vec4ftraslate.x = xmin;
-			//is left
-			if (Character->vec4ftraslate.x + move_pase >= xmax)
-				Character->vec4ftraslate.x = xmax;
-			//is down
-			if (Character->vec4ftraslate.z + move_pase >= zmin)
-				Character->vec4ftraslate.z = zmin;
-			//is up
-			if (Character->vec4ftraslate.z - move_pase <= zmax)
-				Character->vec4ftraslate.z = zmax;
+		{
+			std::cout << "yes" << std::endl;
+			return true;
 		}
+		else
+		return false;
 	}
 		
 	
@@ -427,6 +419,7 @@ public:
 		Check_walls10();
 		Check_walls11();
 		Check_walls12();
+		check_coin1();
 		if (walls.size() > 0) {
 			for (int i = 0; i < walls.size(); i++)
 			{
