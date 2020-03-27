@@ -185,7 +185,7 @@ bool one_win = true;
 float points = 0;
 
 //COINS
-bool only_once1 = true;
+bool only_once[5] = { true, true, true, true, true };
 
 //MONITOR
 bool fullscreen = false;
@@ -1302,12 +1302,50 @@ void Application::SetCharacter()
 
 void Application::Get_Points()
 {
-	if(game->check_coin1() && only_once1)
+	if(game->check_coin1() && only_once[0])
 	{
 		SoundEngine->play2D("./../music/coin.mp3", GL_FALSE);
 		points += 100;
-		only_once1 = false;
+		only_once[0] = false;
+		
 	}
+
+	if (game->check_coin2() && only_once[1])
+	{
+		SoundEngine->play2D("./../music/coin.mp3", GL_FALSE);
+		points += 100;
+		only_once[1] = false;
+
+	}
+	
+	if (game->check_coin3() && only_once[2])
+	{
+		SoundEngine->play2D("./../music/coin.mp3", GL_FALSE);
+		points += 100;
+		only_once[2] = false;
+
+	}
+
+	if (game->check_coin4() && only_once[3])
+	{
+		SoundEngine->play2D("./../music/coin.mp3", GL_FALSE);
+		points += 100;
+		only_once[3] = false;
+
+	}
+
+	if (game->check_coin5() && only_once[4])
+	{
+		SoundEngine->play2D("./../music/coin.mp3", GL_FALSE);
+		points += 100;
+		only_once[4] = false;
+
+	}
+
+
+
+
+
 }
 
 void Application::Lose_Points()

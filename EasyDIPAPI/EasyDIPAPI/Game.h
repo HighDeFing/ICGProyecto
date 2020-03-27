@@ -319,17 +319,83 @@ public:
 			return false;
 	}
 
+	
+
+	
+	//float xmin = -4.08; float zmin = 3.4; float xmax = -3.58f; float zmax = 3.06;
+
 	bool check_coin1()
 	{
-		float xmin = -4.08; float zmin = 3.4; float xmax = -3.58f; float zmax = 3.06;
+		//x: -2.720 y: 0.140 z: 0.000
+		float xmin = -2.970f; float zmin = 0.250; float xmax = -2.470; float zmax = -0.250;
+		//float xmin = -4.08; float zmin = 3.4; float xmax = -3.58f; float zmax = 3.06; 
+		
 		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
 		{
 			std::cout << "yes" << std::endl;
 			return true;
 		}
 		else
-		return false;
+			return false;
 	}
+
+	bool check_coin2()
+	{
+		//x: -1.060 y: 0.140 z: 1.040
+		float xmin = -1.250; float zmin = 1.29; float xmax = -0.81f; float zmax = 0.79;
+		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
+		{
+			std::cout << "yes" << std::endl;
+			return true;
+		}
+		else
+			return false;
+	}
+
+	bool check_coin3()
+	{
+
+		//x: 1.720 y: 0.140 z: 2.700
+		float xmin = 1.47; float zmin = 2.95; float xmax = 1.97f; float zmax = 2.45;
+		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
+		{
+			std::cout << "yes" << std::endl;
+			return true;
+		}
+		else
+			return false;
+	}
+
+	bool check_coin4()
+	{
+
+		//x: 2.720 y: 0.140 z: -2.800
+		float xmin = 2.47; float zmin = -2.55; float xmax = 2.97f; float zmax = -3.05;
+		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
+		{
+			std::cout << "yes" << std::endl;
+			return true;
+		}
+		else
+			return false;
+	}
+
+	bool check_coin5()
+	{
+
+		//x: 3.780 y: 0.140 z: 2.800
+		float xmin = 3.53; float zmin = 3.05; float xmax = 4.03f; float zmax = 2.55;
+		if (Character->vec4ftraslate.x >= xmin && Character->vec4ftraslate.x <= xmax && Character->vec4ftraslate.z <= zmin && Character->vec4ftraslate.z >= zmax)
+		{
+			std::cout << "yes" << std::endl;
+			return true;
+		}
+		else
+			return false;
+	}
+
+
+
 
 	bool is_in_wall() 
 	{
